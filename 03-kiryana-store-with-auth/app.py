@@ -6,11 +6,14 @@ app.secret_key = "my_secret"
 users_data={}
 
 inventory=[
-    {'name':"floor", "price":'120', "available":"200"},
-    {'name':"rice", "price":'220', "available":"100"},
-    {'name':"soap", "price":'90', "available":"300"},
-    {'name':"oil", "price":'500', "available":"250"},
+    {'name':"floor", "price":'120', "available":200},
+    {'name':"rice", "price":'220', "available":100},
+    {'name':"soap", "price":'90', "available":300},
+    {'name':"oil", "price":'500', "available":250},
 ]
+
+quantity = 0
+
 
 
 @app.route("/")
@@ -55,3 +58,15 @@ def shop():
 @app.route("/users")
 def users():
     return render_template("users.html", users_data=users_data)
+
+@app.route("/buy", methods=["POST"])
+def buy():
+    item_name = request.form.get("item_name")
+    quantity = int(request.form.get("quantity"))
+    
+    for item in inventory:
+        if item_name == item['name'] and quantity <= item['available']:
+            item['available'] -= quantity
+            break
+        
+    return redirect(url_for("shop"))

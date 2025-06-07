@@ -8,12 +8,17 @@
 </head>
 <body>
     <h1>Welcome to shop</h1>
-    
-    {% for item in inventory %}
-    <div class="py-8 px-6 bg-blue-400 text-white rounded m-4">
-        <p>{{item['name']}}: {{item['price']}}</p>
+    <a href="/">Home</a>
+    {% for item in inventory %} 
+    <form method="POST" action="/buy" class="py-8 px-6 bg-blue-400 text-white rounded m-4">
+        <p>{{item['name'].title()}}: Rs.{{item['price']}}</p>
         <p>Available Stock: {{item['available']}}</p>
-    </div>
+
+        <input type="hidden" name="item_name" value="{{item['name']}}" min="1" max="{{item['available']}}" required>
+        <input class="bg-gray-300 px-2 py-1" type="number" name="quantity" >
+        <button type="submit" class="px-3 py-1 bg-green-400 rounded-full">Buy Now</button>
+        
+    </form>
     {% endfor %}
     <a href="/users">Users</a>
 </body>
