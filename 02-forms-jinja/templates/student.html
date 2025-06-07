@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Page</title>
+</head>
+<body>
+    <h1>Welcome {{name}}</h1>
+    {% if is_topper %}
+    <p>You are a toperr, tadaa.</p>
+    {% else %}
+    <p>Work hard bachaaaa!</p>
+    {% endif %}
+
+    <h2>Your subjects</h2>
+    <ul></ul>
+    <li>{{subjects[0]}}</li>
+    <li>{{subjects[1]}}</li>
+    <li>{{subjects[2]}}</li>
+</body>
+</html>
