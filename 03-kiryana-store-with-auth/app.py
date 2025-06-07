@@ -26,7 +26,7 @@ def signup():
         gender = request.form.get("gender")
 
         users_data[username] = password
-
+        
         return redirect(url_for('login'))
     
     return render_template("signup.html")
@@ -50,8 +50,8 @@ def login():
 
 @app.route("/shop")
 def shop():
-    return render_template("shop.html")
+    return render_template("shop.html", inventory=inventory)
 
 @app.route("/users")
 def users():
-    return render_template("users.html", users_data=users_data, inventory=inventory)
+    return render_template("users.html", users_data=users_data)

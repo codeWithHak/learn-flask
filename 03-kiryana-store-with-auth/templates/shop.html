@@ -8,11 +8,13 @@
 </head>
 <body>
     <h1>Welcome to shop</h1>
-    {% for item in inventory%}
-    <div>
-
+    
+    {% for item in inventory %}
+    <div class="py-8 px-6 bg-blue-400 text-white rounded m-4">
+        <p>{{item['name']}}: {{item['price']}}</p>
+        <p>Available Stock: {{item['available']}}</p>
     </div>
-
+    {% endfor %}
     <a href="/users">Users</a>
 </body>
 </html>
