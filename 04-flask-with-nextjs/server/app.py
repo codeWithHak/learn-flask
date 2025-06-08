@@ -6,8 +6,8 @@ CORS(app)
 @app.route("/api/home")
 def return_home():
     return jsonify({
-        "message":"Hello NextJs + Flask Babbyyyyy",
-        "people":["Huzair","Huzaifa","Aaa merii jaaan"]
+        "message":"Hello NextJs + Flask",
+        "people":["Huzair","Huzaifa","Khizar"]
     })
 
 
