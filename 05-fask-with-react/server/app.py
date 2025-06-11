@@ -1,8 +1,9 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from agents import Agent, Runner, AsyncOpenAI, OpenAIChatCompletionsModel, set_tracing_disabled
 from dotenv import load_dotenv
 import os
+import asyncio
 
 load_dotenv()
 set_tracing_disabled(disabled=True)
@@ -26,15 +27,18 @@ agent = Agent(
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/api/home",methods=["GET","POST"])
-def home():
-    result = Runner.run_sync(
-    agent,
-    "helloooo"
-)
-    return jsonify({"message":result.final_output})
+# async def run_agent_async(user_input):
+#     result = await Runner.run(agent, user_input)
+#     return result.final_output
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route("/api/home",methods=["GET","POST"])
+async def home():
+    if request.method == "POST":
+        data = request.get_json()
+        user_input = data.get("user_input")
+        result = await Runner.run(agent,user_input)
+        return jsonify({"message":result.final_output})
+    else:
+        return jsonify({"message":"Send a message please"})
 
     
