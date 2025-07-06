@@ -1,33 +1,44 @@
-# import flask to create a server an jsonify to return a json object
-from flask import Flask, jsonify
+# Simple Flask MySQL Connection Example
+# This shows how to connect Python with MySQL database
 
-# import mysql.connector, this will establish a connection between your python code and mysql
-import mysql.connector
+# Step 1: Import the libraries we need
+from flask import Flask, jsonify  # Flask for web server, jsonify for JSON responses
+import mysql.connector  # This connects Python to MySQL database
 
-# create a flask instance
+# Step 2: Create Flask app
 app = Flask(__name__)
 
-# create a database connections usong connect functions
-# this will take some kwargs, you see details about those kwargs at:
-# https://dev.mysql.com/doc/connector-python/en/connector-python-connectargs.html 
-db_connection = mysql.connector.connect(
-    user="your username", # e.g. root
-    password="your password", # e.g. 123
-    database="your database name", # e.g office
-    host="hosting/domain" # e.g localhost or your domain name
-    )
+# Step 3: Setup database connection
+# Replace these with your actual database details
+connection = mysql.connector.connect(
+    host='localhost',        # Where your MySQL server is running
+    user='root',            # Your MySQL username
+    password='your_password', # Your MySQL password
+    database='your_database' # Your database name
+)
 
-
-@app.route("/getTable", methods=["GET"])
-def get_table():
-    cursor = db_connection.cursor()
+# Step 4: Create an API endpoint
+@app.route('/tables', methods=['GET'])
+def get_tables():
+    # Create a cursor this lets us execute SQL commands
+    cursor = connection.cursor()
     
+    # Execute SQL command to show all tables, (you can execute any sql command here)
     cursor.execute("SHOW TABLES")
-    tables = cursor.fetchall()
-    cursor.close()
-    db_connection.close()
     
-    tables = [table[0] for table in tables]
-    return jsonify({"tables":tables}), 200
+    # fetch all rows (result will be in a list of tuples)
+    tables = cursor.fetchall()
+    
+    # Close the cursor (good practice)
+    cursor.close()
+    
+    # Convert results to a simple list
+    # tables comes as list of tuples like:[(table1,), (table2,)] so we extract just the names
+    table_names = [table[0] for table in tables]
+    
+    # Return as JSON
+    return jsonify(table_names)
 
-app.run(debug=True)
+# Step 5: Run the app
+if __name__ == '__main__':
+    app.run(debug=True)  # debug=True shows errors clearly
