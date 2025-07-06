@@ -18,7 +18,7 @@ connection = mysql.connector.connect(
 )
 
 # Step 4: Create an API endpoint
-@app.route('/tables', methods=['GET'])
+@app.route('/getTables', methods=['GET'])
 def get_tables():
     # Create a cursor this lets us execute SQL commands
     cursor = connection.cursor()
