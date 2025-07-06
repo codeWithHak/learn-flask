@@ -126,14 +126,4 @@ Once this works, you can:
 2. Add more API endpoints
 3. Learn about inserting and updating data
 
-## Complete File Structure
-
-I'm using UV (pip's replacement) so my project structure is a bit different but if you are using pip,
-Your project should look like this:
-```
-my-project/
-├── app.py          # Your main Python file
-└── README.md       # This guide
-```
-
-That's it! You've successfully connected MySQL with Python!
+**That's it! You've successfully connected MySQL with Python!**
