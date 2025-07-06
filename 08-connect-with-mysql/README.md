@@ -128,6 +128,7 @@ Once this works, you can:
 
 ## Complete File Structure
 
+I'm using UV (pip's replacement) so my project structure is a bit different but if you are using pip,
 Your project should look like this:
 ```
 my-project/
